@@ -1,3 +1,4 @@
+applicationSet: 'OPS Tooling'
 basicAuth: []
 image:
   repo: kubernetesui/dashboard
