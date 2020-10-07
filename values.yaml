@@ -1,0 +1,20 @@
+basicAuth: []
+image:
+  repo: kubernetesui/dashboard
+  tag: v2.0.4
+dashboardMetricsScraperImage:
+  repo: kubernetesui/metrics-scraper
+  tag: v1.0.4
+ports:
+  svc: 80
+  app: 9090
+customAppArguments: []
+certManagerCertificate: true
+ingress:
+  class: nginx
+  hostname: k8s-dashboard-dev.bosch-ops4.com
+  tls:
+    crt: {}
+    key: {}
+    ca: {}
+  userProvidedIngressAnnotations: {}

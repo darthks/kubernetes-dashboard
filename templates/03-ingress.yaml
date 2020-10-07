@@ -1,0 +1,30 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    {{- include "chartwide-annotations" . | nindent 4 }}
+    {{- if .Values.ingress.userProvidedIngressAnnotations }}
+    {{- range $key, $value := .Values.ingress.userProvidedIngressAnnotations }}
+    {{ $key | nindent 4 }}: {{ $value | quote }}
+    {{- end }}
+    {{- end }}
+    kubernetes.io/ingress.class: {{ .Values.ingress.class }}
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  labels:
+    k8s-app: {{ .Release.Name }}
+  name: {{ .Release.Name }}
+spec:
+  tls:
+  - hosts:
+    - {{ .Values.ingress.hostname }}
+    secretName: {{ .Release.Name }}-http-tls
+  rules:
+  - host: {{ .Values.ingress.hostname }}
+    http:
+      paths:
+      - backend:
+          serviceName: {{ .Release.Name }}
+          servicePort: {{ .Values.ports.svc }}
+        path: /
