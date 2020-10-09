@@ -27,11 +27,11 @@ rules:
     # Allow Dashboard to get metrics.
   - apiGroups: [""]
     resources: ["services"]
-    resourceNames: ["heapster", "{{ .Release.Name }}-metrics-scraper"]
+    resourceNames: ["heapster", "dashboard-metrics-scraper"]
     verbs: ["proxy"]
   - apiGroups: [""]
     resources: ["services/proxy"]
-    resourceNames: ["heapster", "http:heapster:", "https:heapster:", "{{ .Release.Name }}-metrics-scraper", "http:{{ .Release.Name }}-metrics-scraper"]
+    resourceNames: ["heapster", "http:heapster:", "https:heapster:", "dashboard-metrics-scraper", "http:dashboard-metrics-scraper"]
     verbs: ["get"]
 
 ---
