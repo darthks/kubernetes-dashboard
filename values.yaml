@@ -10,10 +10,10 @@ ports:
   svc: 80
   app: 9090
 customAppArguments: []
-certManagerCertificate: true
 ingress:
   class: nginx
   hostname: k8s-dashboard-dev.bosch-ops4.com
+  tlsSecretName: ''
   tls:
     crt: {}
     key: {}

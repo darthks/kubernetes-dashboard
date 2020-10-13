@@ -10,8 +10,10 @@ metadata:
     {{- end }}
     {{- end }}
     kubernetes.io/ingress.class: {{ .Values.ingress.class }}
+    {{- if or .Values.ingress.tls.crt .Values.ingress.tlsSecretName }}
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    {{- end }}
   labels:
     k8s-app: {{ .Release.Name }}
   name: {{ .Release.Name }}
@@ -19,7 +21,11 @@ spec:
   tls:
   - hosts:
     - {{ .Values.ingress.hostname }}
+    {{- if .Values.ingress.tlsSecretName }}
+    secretName: {{ .Values.ingress.tlsSecretName }}
+    {{- else }}
     secretName: {{ .Release.Name }}-http-tls
+    {{- end }}
   rules:
   - host: {{ .Values.ingress.hostname }}
     http:

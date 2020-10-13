@@ -1,0 +1,27 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: {{ .Release.Name }}
+  name: {{ .Release.Name }}
+spec:
+  ports:
+    - port: {{ .Values.ports.svc }}
+      targetPort: {{ .Values.ports.app }}
+  selector:
+    k8s-app: {{ .Release.Name }}
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: dashboard-metrics-scraper
+  name: dashboard-metrics-scraper
+spec:
+  ports:
+    - port: 8000
+      targetPort: 8000
+  selector:
+    k8s-app: dashboard-metrics-scraper
